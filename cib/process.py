@@ -119,6 +119,16 @@ def process_one(src: Path, dst: Path, spec: dict, session, Image) -> str:
     img = _downscale(img, int(spec.get("workingResolution", DEFAULT_WORKING_RES)), Image)
 
     mode = (spec.get("removeBackground") or "rembg").lower()
+
+    # "skip" is the bypass a user can choose at the image-review checkpoint
+    # when cropping/transparency isn't worth the time for this batch - the
+    # harvested image passes through unchanged (just re-encoded to PNG, and
+    # already downscaled above if it was huge). No rembg, no trim, no canvas.
+    if mode == "skip":
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        img.save(dst, "PNG")
+        return f"{orig[0]}x{orig[1]} -> passthrough (no background removal) -> {img.size[0]}x{img.size[1]}"
+
     if mode == "rembg":
         img = remove_background(img, session, bool(spec.get("alphaMatting", False)))
     elif mode == "none":

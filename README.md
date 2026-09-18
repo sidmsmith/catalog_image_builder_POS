@@ -146,6 +146,12 @@ Notes:
   recognize is written blank rather than erroring (lets one retailer's schema
   carry a column the other doesn't populate).
 - Secrets never live here. Cloud name and folder are not secret.
+- `imageSpec.removeBackground`: `"rembg"` (local cutout, default), `"none"`
+  (source is already transparent — just trim + canvas), or **`"skip"`** —
+  the bypass for when cropping/transparency isn't worth the time on a POS
+  batch: the harvested image passes through unchanged (no rembg, no trim, no
+  canvas fit). Claude asks whether to use `"skip"` at the image-review
+  checkpoint rather than deciding on its own — see `CLAUDE.md`.
 
 ---
 

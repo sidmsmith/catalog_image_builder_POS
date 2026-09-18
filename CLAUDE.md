@@ -37,6 +37,19 @@ both — every kept row with its image and name.
 2. **Images** — after `cib process`. Wait for swap/drop decisions before
    `csv` / `upload`.
 
+### Ask before skipping background removal
+
+Cropping + transparency matter less for POS than they did for the WM demo
+catalogue. **Don't drop the `process` step from the workflow**, but right
+after the name/manifest review checkpoint - before running `cib process` -
+ask the user whether the harvested images are fine to use as-is (original
+background, no cropping) or whether they want the usual rembg cutout for
+this batch. If they say the raw images are fine, set that customer's
+`imageSpec.removeBackground` to `"skip"` in `config.json` before running
+`cib process` — it passes each image through unchanged (still lands in
+`images/processed/` under the right stem, so `csv`/`upload` need no special
+handling). Default stays `"rembg"` until the user says otherwise.
+
 ## Onboarding a new customer
 
 `cib new-customer "<Display Name>" --website <site> --dir <base folder> --columns "<retailer's real CSV header>"`.

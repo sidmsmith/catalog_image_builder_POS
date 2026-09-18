@@ -1,0 +1,50 @@
+{
+  "customer": "Lululemon",
+  "source": "lululemon.com",
+  "outputCsvDir": "C:\\Users\\ssmith\\OneDrive - Manhattan Associates\\Documents\\Solutions Consulting\\Lululemon",
+  "outputCsvName": "LululemonItems.csv",
+  "csvColumns": [
+    "ItemId",
+    "ShortDescription",
+    "WebURL",
+    "Description",
+    "SellingPrice",
+    "BasePrice",
+    "ColorName",
+    "ColorGroup",
+    "Size",
+    "SizeSortSequence",
+    "ImageURI",
+    "ImageURI2",
+    "ImageURI3",
+    "Style",
+    "Brand",
+    "StoreDepartment",
+    "ProductClass",
+    "Style1",
+    "Style2",
+    "AdjustQuantity",
+    "Rating"
+  ],
+  "imagesDir": "C:\\Users\\ssmith\\OneDrive - Manhattan Associates\\Documents\\Solutions Consulting\\Lululemon\\images",
+  "cloudinary": {
+    "cloudName": "com-manh-cp",
+    "folder": "sidney",
+    "preset": "sc_uploads",
+    "urlPrefix": "https://res.cloudinary.com/com-manh-cp/image/upload/"
+  },
+  "imageSpec": {
+    "canvas": 600,
+    "fit": "contain",
+    "format": "png",
+    "transparent": true,
+    "trim": true,
+    "removeBackground": "rembg",
+    "rembgModel": "birefnet-general",
+    "workingResolution": 1600
+  },
+  "naming": {
+    "style": "TitleCase_Underscores",
+    "versionSuffix": true
+  }
+}

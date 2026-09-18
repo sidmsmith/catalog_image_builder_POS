@@ -61,6 +61,24 @@ class ImageOpsTests(unittest.TestCase):
         self.assertEqual(self.process._downscale(big, 1600, Image).size, (1600, 800))
         self.assertEqual(self.process._downscale(small, 1600, Image).size, (300, 200))
 
+    def test_skip_mode_passes_image_through_unchanged(self):
+        import tempfile
+        from pathlib import Path
+
+        with tempfile.TemporaryDirectory() as d:
+            src = Path(d) / "raw.jpg"
+            dst = Path(d) / "out" / "stem.png"
+            Image.new("RGB", (400, 250), (10, 20, 30)).save(src, "JPEG")
+            detail = self.process.process_one(
+                src, dst, {"removeBackground": "skip", "canvas": 600, "trim": True},
+                session=None, Image=Image)
+            self.assertTrue(dst.is_file())
+            with Image.open(dst) as out:
+                out.load()
+                # untouched aside from RGBA conversion - no square-canvas fit, no crop
+                self.assertEqual(out.size, (400, 250))
+            self.assertIn("passthrough", detail)
+
 
 class ModelDefaultTests(unittest.TestCase):
     def test_default_model_is_quality(self):
