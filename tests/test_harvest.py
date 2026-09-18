@@ -135,6 +135,36 @@ class RunTests(unittest.TestCase):
             with self.assertRaises(HarvestError):
                 harvest.run(cfg)
 
+    def test_append_does_not_duplicate_existing_rows(self):
+        # Regression: --append must add only the genuinely new rows. Running
+        # it a second time against the same two-item input plus one new item
+        # must leave exactly 3 manifest rows, not 5 (the first two rewritten
+        # a second time in addition to the new one).
+        import sys
+        with TemporaryDirectory() as d:
+            tmp = Path(d)
+            cfg = self._cfg(tmp)
+            self._input(cfg, [("Deep Sleep", "https://x/ds.png", "supplement", "ACME-01"),
+                              ("Zinc", "https://x/z.png", "supplement", "ACME-02")])
+            orig = sys.modules.get("requests")
+            sys.modules["requests"] = _stub_requests()
+            try:
+                harvest.run(cfg)
+                self._input(cfg, [("Deep Sleep", "https://x/ds.png", "supplement", "ACME-01"),
+                                  ("Zinc", "https://x/z.png", "supplement", "ACME-02"),
+                                  ("Iron", "https://x/i.png", "supplement", "ACME-03")])
+                harvest.run(cfg, append=True)
+            finally:
+                if orig is not None:
+                    sys.modules["requests"] = orig
+                else:
+                    sys.modules.pop("requests", None)
+
+            from cib.manifest import read_manifest
+            rows = read_manifest(cfg.manifest_path)
+            self.assertEqual(len(rows), 3)
+            self.assertEqual([r.source_name for r in rows], ["Deep Sleep", "Zinc", "Iron"])
+
 
 if __name__ == "__main__":
     unittest.main()

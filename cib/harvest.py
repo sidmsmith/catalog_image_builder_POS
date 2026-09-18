@@ -269,6 +269,12 @@ def run(cfg: Config,
 
 
 def _write_manifest(cfg: Config, result: HarvestResult, *, append: bool) -> None:
+    # In append mode, rows already on disk from a prior run (outcome
+    # "skipped" / detail "already in manifest") must NOT be rewritten - the
+    # file is opened in append mode below, so re-including them would
+    # duplicate every pre-existing row instead of just adding the new ones.
+    write_items = [it for it in result.items
+                   if not (append and it.detail == "already in manifest")]
     rows = [{
         "sourceName": it.name, "brand": it.brand,
         "sourceUrl": it.url, "localFile": it.local_file, "category": it.category,
@@ -286,7 +292,7 @@ def _write_manifest(cfg: Config, result: HarvestResult, *, append: bool) -> None
         "departmentNumber": it.department_number, "departmentName": it.department_name,
         "vasTypeId": it.vas_type_id, "locationId": it.location_id,
         "caLocationId": it.ca_location_id, "weight": it.weight, "volume": it.volume,
-    } for it in result.items]
+    } for it in write_items]
 
     path = cfg.manifest_path
     mode = "a" if (append and path.is_file()) else "w"
