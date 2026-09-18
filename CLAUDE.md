@@ -97,5 +97,5 @@ were rewritten for the real-SKU-per-row POS model; `wm_update.py` and the
 - Every CLI stage is idempotent and re-runnable.
 - Side-effectful stages support `--dry-run`.
 - Commit and push after each phase / unit of work lands (see `AGENTS.md`).
-  This repo has **no remote configured yet** — set one up before relying on
-  push for backup/sharing.
+  Remote: `origin` = github.com/sidmsmith/catalog_image_builder_POS
+  (**public** — never commit real secrets; `.env` stays gitignored), `main`.
