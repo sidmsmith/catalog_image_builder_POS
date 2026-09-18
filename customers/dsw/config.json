@@ -1,0 +1,59 @@
+{
+  "customer": "DSW",
+  "source": "dsw.com",
+  "outputCsvDir": "C:\\Users\\ssmith\\OneDrive - Manhattan Associates\\Documents\\Solutions Consulting\\DSW",
+  "outputCsvName": "DSWItems.csv",
+  "csvColumns": [
+    "WebURL",
+    "ShortDescription",
+    "SellingPrice",
+    "BasePrice",
+    "Size",
+    "ColorGroup",
+    "ColorName",
+    "ColorImageURI",
+    "Description",
+    "ImageURI",
+    "ImageURI2",
+    "ImageURI3",
+    "ItemId",
+    "Style",
+    "ColorSortSequence",
+    "SizeSortSequence",
+    "Brand",
+    "StoreDepartment",
+    "ProductClass",
+    "DepartmentNumber",
+    "DepartmentName",
+    "VasTypeId",
+    "AdjustQuantity",
+    "LocationId",
+    "CALocationId",
+    "Style1",
+    "Style2",
+    "Rating",
+    "Weight",
+    "Volume"
+  ],
+  "imagesDir": "C:\\Users\\ssmith\\OneDrive - Manhattan Associates\\Documents\\Solutions Consulting\\DSW\\images",
+  "cloudinary": {
+    "cloudName": "com-manh-cp",
+    "folder": "sidney",
+    "preset": "sc_uploads",
+    "urlPrefix": "https://res.cloudinary.com/com-manh-cp/image/upload/"
+  },
+  "imageSpec": {
+    "canvas": 600,
+    "fit": "contain",
+    "format": "png",
+    "transparent": true,
+    "trim": true,
+    "removeBackground": "rembg",
+    "rembgModel": "birefnet-general",
+    "workingResolution": 1600
+  },
+  "naming": {
+    "style": "TitleCase_Underscores",
+    "versionSuffix": true
+  }
+}

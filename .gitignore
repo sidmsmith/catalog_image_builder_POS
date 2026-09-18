@@ -1,0 +1,15 @@
+# secrets / personal
+.env
+*.token
+.claude/settings.local.json
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# generated / downloaded artifacts (large, or duplicated in OneDrive)
+customers/*/images/
+customers/*/out/
+
+# manifest.csv and harvest_input.csv ARE tracked — small, text, provenance

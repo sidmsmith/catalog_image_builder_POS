@@ -1,0 +1,12 @@
+# Install into the project .venv:  pip install -r requirements.txt
+# After the first successful install, run `pip freeze > requirements.lock`
+# to pin exact versions for reproducibility.
+
+rembg            # local background removal
+onnxruntime      # rembg backend
+                 # note: the birefnet-general model (~1 GB) downloads to
+                 # ~/.rembg/ on first `cib process`; isnet-general-use is ~180 MB
+pillow           # trim / resize / canvas compositing
+requests         # image downloads
+cloudinary       # image upload
+python-dotenv    # load .env
