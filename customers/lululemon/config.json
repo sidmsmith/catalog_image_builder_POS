@@ -39,7 +39,7 @@
     "format": "png",
     "transparent": true,
     "trim": true,
-    "removeBackground": "rembg",
+    "removeBackground": "skip",
     "rembgModel": "birefnet-general",
     "workingResolution": 1600
   },
